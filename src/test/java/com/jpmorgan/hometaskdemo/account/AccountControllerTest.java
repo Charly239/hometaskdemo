@@ -52,11 +52,11 @@ class AccountControllerTest {
         otherItems.put("accountId",12144);
         otherItems.put("source",arr);
 
-        ObjectMapper objectMapper = new ObjectMapper();
 
         Mockito.when(service.validateAccountWithSource(account)).thenReturn(json.toString());
         String url = "/api/v1/account/postbody";
         mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(otherItems.toString()).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
 
 //        RequestBuilder request = MockMvcRequestBuilders.post("/api/v1/account/postbody");
 //        MvcResult result = mvc.perform(request).andReturn();

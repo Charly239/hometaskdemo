@@ -27,13 +27,23 @@ public class AccountController {
     }
     //Designate the condition for the endpoints
     //*Note* configure the PostMapping to only accept and return data in a JSON formatI
+
     @PostMapping(
             value = "/postbody",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     //The RequestBody is converted into an Account class
+    //exception to test: AccountNumber is a long, Source is a List<Strings>
     public String getAccountValidation(@RequestBody Account account) throws JSONException {
         //Logic to check if a data source was added to the body of the endpoint call
+        //There is no validation checking on the RequestBody but it's assumed they will always be long and List<String>
+
+        //If account.accountId != TYPE Long
+        //Return error message "Account Number must be a TYPE Long"
+
+        //If account.accountId != TYPE List<String>
+        //Return error message "Source must be a list type String (List<Sting>)"
+
         if(account.getSource().equals(null)||account.getSource().isEmpty()){
             return accountService.validateAccountWithoutSource(account,dataSourceUrls); /* Data source was not provided */
         }else {

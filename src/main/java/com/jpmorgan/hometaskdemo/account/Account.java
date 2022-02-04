@@ -8,14 +8,18 @@ public class Account {
     private List<String> source;
 
     public Account() {
+
     }
+
     public Account(String accountId) {
         this.accountId = accountId;
     }
+
     public Account(String accountId, List<String> source) {
         this.accountId = accountId;
         this.source = source;
     }
+
     public List<String> getSource() {
         return source;
     }

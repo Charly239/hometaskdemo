@@ -21,6 +21,9 @@ public class AccountService {
     }
 
     /**
+     * *Note* Some of the logic in both the validateAccountWithoutSource() and the validateAccountWithSource() can
+     * be simplified into one method but for simplicity sake I left them as is
+     *
      * Method used to validate the bank account number when a validation data source was not given in the API call
      *
      * @param  account  this object has all the data recieved from the api/v1/account/postbody endpoint
@@ -75,18 +78,17 @@ public class AccountService {
         List <String> sources = account.getSource();
 
         //Counter used to keep track of the number of data sources
-        int counter = 1;
-
+        int sourceCounter = 1;
         //Loop through the data source url List
         for (String tempSource : sources) {
             //creates a new JSON for the validation data that will be added to the final JSON
             JSONObject item = new JSONObject();
             //Call the sourceValidation method to get the boolean value representing
             // whether or not the account is valid for the specific source url
-            item.put("source","source" + counter);
+            item.put("source","source" + sourceCounter);
             item.put("isValid", sourceValidation(tempSource,accountId));
             array.put(item);
-            ++counter;
+            ++sourceCounter;
         }
 
         //Add the resulting data from the validation to the final jsonResult to be returned
@@ -104,7 +106,7 @@ public class AccountService {
      * @return Boolean    the result of validating the bank account number without a specified data source
      *
      * *Note* Since the data sources aren't actually function I created the logic that would handle the
-     * real data sources and commented them out. Instead I returned a random boolean to mock the response of the
+     * real data sources but commented them out. Instead I returned a random boolean to mock the response of the
      * data sources
      */
     public Boolean sourceValidation(String sourceUrl, String accountId ) throws JSONException {
